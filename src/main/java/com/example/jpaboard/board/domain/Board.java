@@ -1,5 +1,6 @@
 package com.example.jpaboard.board.domain;
 
+import com.example.jpaboard.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,8 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +37,10 @@ public class Board {
     @Column
     @UpdateTimestamp
     private LocalDateTime updateAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    private Member member;
 
     @Builder
     public Board(Long boardId, String title, String content, LocalDateTime createAt, LocalDateTime updateAt) {
