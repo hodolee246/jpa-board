@@ -21,8 +21,8 @@ public class Member {
     private String id;
     @Column(nullable = false)
     private String pwd;
-
-    @OneToMany(mappedBy = "boardId", cascade = CascadeType.ALL)
+    //고아객체
+    @OneToMany(mappedBy = "boardId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> boardList = new ArrayList<>();
 
     @Builder
