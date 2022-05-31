@@ -3,6 +3,7 @@ package com.example.jpaboard.board.service;
 import com.example.jpaboard.board.domain.Board;
 import com.example.jpaboard.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,12 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public void getBoardList(Pageable pageable) {
-        boardRepository.findAll(pageable);
+    public Page<Board> getBoardList(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
 
-    public void getBoard(Long boardId) {
-        boardRepository.findById(boardId)
+    public Board getBoard(Long boardId) {
+        return boardRepository.findById(boardId)
                 .orElseThrow(NoSuchElementException::new);
     }
 
@@ -35,7 +36,10 @@ public class BoardService {
     }
 
     public void deleteBoard(Long boardId) {
-        boardRepository.deleteById(boardId);
+        Board getBoard = boardRepository.findById(boardId)
+                .orElseThrow(NoSuchElementException::new);
+
+        boardRepository.deleteById(getBoard.getBoardId());
     }
 
 }
