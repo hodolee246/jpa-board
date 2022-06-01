@@ -39,12 +39,13 @@ public class Board {
     private Member member;
 
     @Builder
-    public Board(Long boardId, String title, String content, LocalDateTime createAt, LocalDateTime updateAt) {
+    public Board(Long boardId, String title, String content, LocalDateTime createAt, LocalDateTime updateAt, Member member) {
         this.boardId = boardId;
         this.title = title;
         this.content = content;
         this.createAt = createAt;
         this.updateAt = updateAt;
+        this.member = member;
     }
 
     public void updateBoard(Board board) {

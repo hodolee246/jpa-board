@@ -3,6 +3,7 @@ package com.example.jpaboard.member.domain;
 import com.example.jpaboard.board.domain.Board;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
