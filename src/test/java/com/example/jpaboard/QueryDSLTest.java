@@ -4,6 +4,7 @@ import com.example.jpaboard.board.domain.Board;
 import com.example.jpaboard.board.repository.BoardRepository;
 import com.example.jpaboard.member.domain.Member;
 import com.example.jpaboard.member.repository.MemberRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,9 @@ public class QueryDSLTest {
                 .content("content")
                 .member(member)
                 .build();
+
+        memberRepository.save(member);
+        boardRepository.save(board);
     }
 
     @AfterEach
@@ -53,12 +57,11 @@ public class QueryDSLTest {
     }
 
     @Test
-    void save() {
-        memberRepository.save(member);
-        boardRepository.save(board);
+    void get() {
+        String memberSql = "select m from Member m";
+        Member getMember = (Member) em.createQuery(memberSql).getSingleResult();
 
-        Member member = (Member) em.createQuery("select m from Member m").getSingleResult();
-        System.out.println(member);
+        Assertions.assertThat(member.getMemberId()).isEqualTo(getMember.getMemberId());
     }
 
 }
