@@ -33,20 +33,20 @@ public class QueryDSLTest {
     @BeforeEach
     void setUp() {
         member = Member.builder()
-                .memberId(1L)
+                .memberId(Long.valueOf(1L))
                 .id("id123")
                 .pwd("pwd123")
                 .build();
 
+        memberRepository.save(member);
         board = Board
                 .builder()
-                .boardId(1L)
+                .boardId(Long.valueOf(1L))
                 .title("title")
                 .content("content")
                 .member(member)
                 .build();
 
-        memberRepository.save(member);
         boardRepository.save(board);
     }
 
@@ -57,11 +57,19 @@ public class QueryDSLTest {
     }
 
     @Test
-    void get() {
+    void memberGet() {
         String memberSql = "select m from Member m";
         Member getMember = (Member) em.createQuery(memberSql).getSingleResult();
 
         Assertions.assertThat(member.getMemberId()).isEqualTo(getMember.getMemberId());
+    }
+
+    @Test
+    void boardGet() {
+        String boardSql = "select b from Board b";
+        Board getBoard = (Board) em.createQuery(boardSql).getSingleResult();
+
+        Assertions.assertThat(board.getBoardId()).isEqualTo(getBoard.getBoardId());
     }
 
 }
