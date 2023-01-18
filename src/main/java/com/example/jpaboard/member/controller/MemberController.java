@@ -15,13 +15,13 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/${memberId}")
-    public Member getMember(@PathVariable Long MemberId) {
-        return
+    public Member getMember(@PathVariable Long memberId) {
+        return memberService.getMember(memberId);
     }
 
     @PostMapping("/{memberId}")
     public void createMember(Member member) {
-
+        memberService.createMember(member);
     }
 
 
