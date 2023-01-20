@@ -20,7 +20,7 @@ public class BoardController {
         return ResponseEntity.ok().body(boardService.getBoardList(pageable));
     }
 
-    @GetMapping("{boardId}")
+    @GetMapping("/{boardId}")
     public ResponseEntity<?> getBoard(@PathVariable Long boardId) {
         return ResponseEntity.ok().body(boardService.getBoard(boardId));
     }
