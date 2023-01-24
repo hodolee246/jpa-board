@@ -45,4 +45,5 @@ public class BoardController {
 
         return ResponseEntity.ok().build();
     }
+
 }
