@@ -1,6 +1,7 @@
 package com.example.jpaboard;
 
 import com.example.jpaboard.board.domain.Board;
+import com.example.jpaboard.board.domain.QBoard;
 import com.example.jpaboard.board.repository.BoardRepository;
 import com.example.jpaboard.member.domain.Member;
 import com.example.jpaboard.member.repository.MemberRepository;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -35,10 +37,12 @@ public class QueryDSLTest {
     private Board insertBoard2;
     private Member member;
     private JPAQueryFactory queryFactory;
+    private QBoard qBoard;
 
     @BeforeEach
     void setUp() {
         queryFactory = new JPAQueryFactory(em);
+        qBoard = new QBoard("qBoard");
 
         member = Member.builder()
                 .memberId(1L)   // ..? 언제는 박싱해라... 이제는 하지마라...
@@ -94,6 +98,11 @@ public class QueryDSLTest {
 
     @Test
     void queryDsl() {
+        List<Board> getBoardList = queryFactory
+                .selectFrom(qBoard)
+                .fetch();
+
+        getBoardList.forEach(System.out::println);
     }
 
 }
